@@ -1,0 +1,40 @@
+﻿@using OOP.Models.Lab1.Task3
+@model InputValues
+
+<h3 class="mb-5">Lab 1, Task 3</h3>
+
+<form asp-action="Task3" method="post">
+    <h3>Enter a numbers</h3>
+    <div class="form-group">
+        <label>First: </label><input asp-for="FirstValue" class="form-control" />
+        <label>Second: </label><input asp-for="SecondValue" class="form-control" />
+    </div>
+    <div class="text-center">
+        <input class="btn btn-primary" type="submit" value="Submit" />
+    </div>
+</form>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<div>
+    @if (ViewBag.Result != null)
+    {
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center">Fahrenheit</th>
+                    <th class="text-center">Celsius</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < ViewBag.Count; i++)
+                {
+                    <tr>
+                        <td class="text-center"> @ViewBag.Result.Fahrenheit[i]</td>
+                        <td class="text-center"> @ViewBag.Result.Celsius[i]</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

@@ -1,0 +1,54 @@
+﻿@using OOP.Models.Lab2
+@model IEnumerable<Employee>
+
+<h3 class="mb-5">Lab 2</h3>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th class="text-center">Id</th>
+            <th class="text-center">Name</th>
+            <th class="text-center">Salary</th>
+            <th class="text-center">Withheld</th>
+            <th class="text-center">Issued</th>
+        </tr>
+    </thead>
+    @foreach (Employee e in Model)
+    {
+        <tbody>
+            <tr>
+                <td class="text-center">@e.Id</td>
+                <td class="text-center">@e.Name</td>
+                <td class="text-center">@e.Salary</td>
+                <td class="text-center">@e.Withheld</td>
+                <td class="text-center">@e.Issued</td>
+                <td class="text-center">
+                    <form asp-action="Delete" method="post">
+                        <a asp-action="UpdateEmployee" asp-route-key="@e.Id"
+                       class="btn btn-outline-primary">
+                            Edit
+                        </a>
+                        <input type="hidden" name="Id" value="@e.Id" />
+                        <button type="submit" class="btn btn-outline-danger">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    }
+    <tfoot>
+        <tr>
+            <td class="text-center"></td>
+            <td class="text-center">Total: </td>
+            <td class="text-center">@ViewBag.TotalData.Salary</td>
+            <td class="text-center">@ViewBag.TotalData.Withheld</td>
+            <td class="text-center">@ViewBag.TotalData.Issued</td>
+        </tr>
+    </tfoot>
+</table>
+
+<div class="text-center p-2">
+    <a asp-action="UpdateEmployee" asp-route-key="0"
+        class="btn btn-primary">Add</a>
+</div>

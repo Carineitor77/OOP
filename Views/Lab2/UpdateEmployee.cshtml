@@ -1,0 +1,49 @@
+﻿@using OOP.Models.Lab2
+@model Employee
+
+<h3>Update Employee</h3>
+
+<form asp-action="UpdateEmployee" method="post">
+    <div class="form-group">
+        <label asp-for="Id"></label>
+        <input asp-for="Id" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Salary"></label>
+        <input asp-for="Salary" id="Salary" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Withheld"></label>
+        <input asp-for="Withheld" id="Withheld" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Issued"></label>
+        <input asp-for="Issued" id="Issued" class="form-control" value="0" readonly />
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Save</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+
+<script>
+    const issued = document.getElementById("Issued");
+    const salary = document.getElementById("Salary");
+    const withheld = document.getElementById("Withheld");
+
+    salary.addEventListener('change', () =>{
+        changeIssued(salary.value, withheld.value);
+    });
+
+    withheld.addEventListener('change', () => {
+        changeIssued(salary.value, withheld.value);
+    });
+
+    const changeIssued = (s, w) => {
+        issued.value = s - w;
+    }
+</script>

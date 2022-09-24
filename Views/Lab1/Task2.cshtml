@@ -1,0 +1,23 @@
+﻿@using OOP.Models.Lab1.Task2;
+@model InputValue
+
+<h3 class="mb-5">Lab 1, Task 2</h3>
+
+<form asp-action="Task2" method="post">
+    <h3>Enter a number</h3>
+    <div class="form-group">
+        <label>Number: </label><input asp-for="Value" class="form-control" />
+    </div>
+    <div class="text-center">
+        <input class="btn btn-primary" type="submit" value="Submit" />
+    </div>
+</form>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<div>
+    @if (ViewBag.Result != null)
+    {
+        <h4>@ViewBag.Result</h4>
+    }
+</div>
