@@ -3,8 +3,15 @@
   "defaultProvider": "cdnjs",
   "libraries": [
     {
+      "library": "signalr.js@2.4.3",
+      "destination": "wwwroot/js/signalr.js/"
+    },
+    {
       "library": "bootstrap@5.2.1",
-      "destination": "wwwroot/lib/bootstrap/"
+      "destination": "wwwroot/lib/bootstrap/",
+      "files": [
+        "css/bootstrap.min.css"
+      ]
     }
   ]
 }
