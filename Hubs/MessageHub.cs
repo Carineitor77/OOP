@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using OOP.Models.Lab3;
+using System;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace OOP.Hubs
@@ -8,8 +10,20 @@ namespace OOP.Hubs
     {
         public Task SendToOthers(Message message)
         {
-            NewMessage messageForClient = NewMessage.Create(Context.Items["Name"] as string, message);
-            return Clients.Others.Send(messageForClient);
+            string? name = Context.Items["Name"] as string;
+            Bird bird = DefineRole(name);
+            Type type = typeof(Bird);
+
+            foreach (var method in type.GetMethods())
+            {
+                if (method.IsVirtual && message.Text == method.Name)
+                {
+                    return Clients.Others.Send(
+                        NewMessage.Create(name, method.Invoke(bird, null) as string));
+                }
+            }
+
+            return Task.CompletedTask;
         }
 
         public Task SetMyName(string name)
@@ -29,13 +43,21 @@ namespace OOP.Hubs
             return Task.CompletedTask;
         }
 
-        public Task<string> GetMyName()
+        private Bird DefineRole(string? role)
         {
-            if (Context.Items.ContainsKey("Name"))
-                return Task.FromResult(Context.Items["Name"] as string);
+            Type parentType = typeof(Bird);
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            Type[] types = assembly.GetTypes();
 
-            return Task.FromResult("Anonymous");
+            switch (role)
+            {
+                case "Eagle":
+                    return new Eagle();
+                case "Duck":
+                    return new Duck();
+                default:
+                    throw new ArgumentException("Didn't define a bird");
+            }
         }
-
     }
 } 

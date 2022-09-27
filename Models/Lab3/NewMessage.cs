@@ -6,12 +6,12 @@
 
         private NewMessage() {}
 
-        public static NewMessage Create(string sender, Message message)
+        public static NewMessage Create(string? sender, string? message)
         {
             return new NewMessage
             {
                 Sender = string.IsNullOrWhiteSpace(sender) ? "Anonymous" : sender,
-                Text = message.Text
+                Text = message
             };
         }
     }

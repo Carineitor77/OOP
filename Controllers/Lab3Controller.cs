@@ -6,7 +6,8 @@ namespace OOP.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            string[] roles = new string[] { "Eagle", "Duck" };
+            return View(roles);
         }
     }
 }

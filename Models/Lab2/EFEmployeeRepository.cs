@@ -7,9 +7,7 @@ namespace OOP.Models.Lab2
     {
         private OOPDbContext context;
 
-// #pragma warning disable CS8618
         public EFEmployeeRepository(OOPDbContext ctx)
-// #pragma warning restore CS8618
         {
             context = ctx;
         }

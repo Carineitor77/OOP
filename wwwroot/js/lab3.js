@@ -24,13 +24,14 @@ connection.onreconnected(connectionId => {
 });
 
 function appendMessage(sender, message, color) {
-    document.querySelector('#messages-content').insertAdjacentHTML("beforeend", `<div style="color:${color}"><p>Sender: ${sender}</p><p>Text: ${message}</p></div><br>`);
+    document.querySelector('#messages-content').insertAdjacentHTML("beforeend", `<div style="color:${color}"><p>Sender: ${sender}</p><p>Action: ${message}</p></div><br>`);
 }
 
 async function connect() {
     if (connection.state === 'Disconnected') {
         try {
             await connection.start();
+            setMyName();
         }
         catch (error) {
             console.log(error);
@@ -48,10 +49,9 @@ async function connect() {
     }
 };
 
-async function sendMessage() {
+async function sendMessage(toDo) {
     if (connection.state === 'Connected') {
-        const textArea = document.querySelector('#message');
-        const message = { text: textArea.value };
+        const message = { text: toDo };
         try {
             await connection.send('SendToOthers', message);
             appendMessage('Me', message.text, 'green');
@@ -63,23 +63,11 @@ async function sendMessage() {
     }
 };
 
-async function getMyName() {
-    if (connection.state === 'Connected') {
-        try {
-            const myName = await connection.invoke('GetMyName');
-            document.querySelector('#name').value = myName;
-        }
-        catch (error) {
-            console.log(error);
-        }
-    }
-};
-
 async function setMyName() {
     if (connection.state === 'Connected') {
         try {
-            const name = document.querySelector('#name').value;
-            await connection.send('SetMyName', name);
+            const select = document.getElementById('role');
+            await connection.send('SetMyName', select.value);
         }
         catch (error) {
             console.log(error);
