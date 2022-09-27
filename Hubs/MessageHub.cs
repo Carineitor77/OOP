@@ -45,10 +45,6 @@ namespace OOP.Hubs
 
         private Bird DefineRole(string? role)
         {
-            Type parentType = typeof(Bird);
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            Type[] types = assembly.GetTypes();
-
             switch (role)
             {
                 case "Eagle":
